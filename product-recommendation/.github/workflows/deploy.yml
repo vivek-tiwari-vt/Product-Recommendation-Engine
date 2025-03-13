@@ -1,0 +1,20 @@
+name: Deploy to AWS
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Docker image
+      run: docker build -t recommendation-api ./app
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker pull your-dockerhub/recommendation-api:latest
+          docker run -d -p 80:80 your-dockerhub/recommendation-api:latest
