@@ -40,3 +40,90 @@ A hybrid recommendation engine that combines:
 ---
 
 ## **Project Structure**  
+```bash
+recommendation-engine/
+├── data/ # Raw and processed datasets
+│ ├── interactions.csv # User-product ratings
+│ └── product_metadata.csv
+├── models/ # Trained models
+│ ├── cf_model.pkl # Collaborative filtering model
+│ └── word2vec.model # Word2Vec embeddings
+├── src/ # Core algorithms
+│ ├── collaborative_filtering.py
+│ ├── nlp_engine.py
+│ └── hybrid_engine.py
+├── app/ # Flask API
+│ ├── app.py
+│ └── requirements.txt
+└── notebooks/ # Training and evaluation
+└── Hybrid_Recommendation.ipynb
+```
+
+
+---
+
+## **Getting Started**  
+
+### **1. Installation**  
+```bash
+# Clone repository
+git clone https://github.com/your-username/recommendation-engine.git
+cd recommendation-engine
+
+# Set up Python environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r app/requirements.txt
+
+```
+
+## **2. Data Preparation**
+```bash
+# Navigate to data directory
+cd data
+
+# Download dataset (Electronics subset)
+wget https://github.com/nijianmo/amazon/raw/main/data/small/Electronics_5.json.gz
+wget https://github.com/nijianmo/amazon/raw/main/data/small/meta_Electronics.json.gz
+
+# Decompress files
+gzip -d Electronics_5.json.gz
+gzip -d meta_Electronics.json.gz
+
+# Convert JSON to CSV
+python convert_json_to_csv.py
+python convert_metadata.py
+```
+
+## **3. Train Models**
+```bash
+jupyter notebook notebooks/Hybrid_Recommendation.ipynb
+```
+
+## **4. Start API Server**
+```bash
+# From the project root
+cd app
+gunicorn --workers 4 --bind 0.0.0.0:5000 app:app
+```
+
+Test the API :
+```bash
+curl "http://localhost:5000/recommend?user_id=A10000012B4V7Y3U4W5"
+```
+
+---
+
+## **Deployment**
+
+## AWS EC2 Setup
+**Build Docker Image & Run image:**
+```bash
+docker build -t recommendation-engine -f app/Dockerfile .
+#run container
+docker run -d -p 5000:5000 recommendation-engine
+
+```
+---
