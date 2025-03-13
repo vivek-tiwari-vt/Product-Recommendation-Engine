@@ -1,5 +1,3 @@
-# Product-Recommendation-Engine
-
 # Product Recommendation Engine  
 **Hybrid Recommender System (Collaborative Filtering + NLP)**  
 
