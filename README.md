@@ -114,8 +114,6 @@ curl "http://localhost:5000/recommend?user_id=A10000012B4V7Y3U4W5"
 
 ---
 
-## **Deployment**
-
 ## AWS EC2 Setup
 **Build Docker Image & Run image:**
 ```bash
